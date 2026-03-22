@@ -115,7 +115,13 @@ export default function SettingsPage() {
     }
   }
 
-  const initials = fullName.split(' ').map((n) => n[0]).join('').toUpperCase().slice(0, 2) || 'U'
+  const initials = fullName
+    .split(' ')
+    .filter((n) => n.length > 0)
+    .map((n) => n[0])
+    .join('')
+    .toUpperCase()
+    .slice(0, 2) || 'U'
 
   return (
     <motion.div

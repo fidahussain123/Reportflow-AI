@@ -44,10 +44,11 @@ export default function Sidebar() {
   const displayName = profile?.full_name || profile?.email?.split('@')[0] || 'User'
   const initials = displayName
     .split(' ')
+    .filter((n) => n.length > 0)
     .map((n) => n[0])
     .join('')
     .toUpperCase()
-    .slice(0, 2)
+    .slice(0, 2) || 'U'
 
   const creditsPercent = profile
     ? Math.min((profile.credits_used / profile.credits_limit) * 100, 100)

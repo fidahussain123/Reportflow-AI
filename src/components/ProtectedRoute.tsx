@@ -21,10 +21,10 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="size-10 text-black animate-spin mx-auto mb-4" />
-          <p className="text-black/50 font-medium">Loading...</p>
+          <Loader2 className="size-10 text-white/30 animate-spin mx-auto mb-4" />
+          <p className="text-white/50 font-medium">Loading...</p>
         </div>
       </div>
     )
