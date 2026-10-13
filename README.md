@@ -1,147 +1,88 @@
 # ReportFlow AI
 
-Turn raw marketing data into professional client reports in seconds using Claude AI.
+ReportFlow AI turns Google Ads and Meta Ads CSV exports into client-ready PDF reports. You upload a campaign export, the app analyses the numbers with a large language model, and you get a written report you can download as a PDF.
 
-## Features
+## What it does
 
-- **CSV Upload**: Drag and drop Google Ads or Meta Ads CSV exports
-- **AI-Powered Reports**: Claude AI analyzes your data and writes professional narratives
-- **PDF Export**: Generate beautiful, branded PDF reports with one click
-- **Dashboard**: Track all your reports with stats and quick access
+- Upload a Google Ads or Meta Ads CSV export by drag and drop.
+- Generate a written analysis of how the campaigns performed.
+- Preview the report and export it as a branded PDF.
+- Keep track of past reports from a simple dashboard.
 
-## Tech Stack
+## Stack
 
-- **Framework**: Next.js 14 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **AI**: Claude API (Anthropic)
-- **PDF**: jsPDF
-- **CSV Parsing**: Papaparse
-- **State Management**: Zustand
+Next.js 14 (App Router), TypeScript and Tailwind CSS, with an LLM API for the analysis, jsPDF for the PDF export, Papaparse for CSV parsing and Zustand for state.
 
-## Getting Started
+## Running it locally
 
-### Prerequisites
+You need Node.js 18 or newer.
 
-- Node.js 18+
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
 ```bash
-git clone <your-repo-url>
-cd ReportAI
-```
-
-2. Install dependencies:
-```bash
+git clone https://github.com/fidahussain123/Reportflow-AI.git
+cd Reportflow-AI
 npm install
-```
-
-3. Create a `.env.local` file in the root directory:
-```bash
 cp .env.example .env.local
 ```
 
-4. Add your API keys to `.env.local`:
+Add your API key to `.env.local`:
+
 ```env
-ANTHROPIC_API_KEY=your_anthropic_api_key_here
+ANTHROPIC_API_KEY=your_api_key_here
 ```
 
-5. Start the development server:
-```bash
-npm run dev
-```
+Then run `npm run dev` and open http://localhost:3000.
 
-6. Open [http://localhost:3000](http://localhost:3000) in your browser.
+Without an API key the app runs in demo mode and produces a sample report, so you can try the whole flow first.
 
-## Project Structure
+## Project structure
 
 ```
 src/
 ├── app/
 │   ├── api/
-│   │   └── generate-report/     # Claude AI report generation
+│   │   └── generate-report/     # report generation endpoint
 │   ├── dashboard/
-│   │   ├── new-report/          # 3-step report wizard
-│   │   ├── report/[id]/         # Report preview page
-│   │   ├── reports/             # All reports list
-│   │   └── settings/            # Account settings
-│   ├── layout.tsx               # Root layout
-│   └── page.tsx                 # Landing page
+│   │   ├── new-report/          # three-step report wizard
+│   │   ├── report/[id]/         # report preview
+│   │   ├── reports/             # list of all reports
+│   │   └── settings/            # account settings
+│   ├── layout.tsx
+│   └── page.tsx                 # landing page
 ├── components/
-│   ├── CSVUploader.tsx          # Drag & drop CSV upload
+│   ├── CSVUploader.tsx          # drag-and-drop upload
 │   ├── PDFExporter.tsx          # PDF generation
-│   ├── ReportPreview.tsx        # Markdown report rendering
-│   └── Sidebar.tsx              # Navigation sidebar
+│   ├── ReportPreview.tsx        # report rendering
+│   └── Sidebar.tsx
 └── lib/
-    ├── store.ts                 # Zustand state management
-    └── utils.ts                 # Utility functions
+    ├── store.ts                 # Zustand store
+    └── utils.ts
 ```
 
-## CSV Format
+## CSV format
 
-### Google Ads Export
-Required columns:
-- Campaign
-- Impressions
-- Clicks
-- CTR
-- Avg. CPC
-- Cost
-- Conversions
-- Conv. rate
-- Cost / conv.
+Google Ads export (Reports, then Predefined Reports, then Campaign Performance) needs these columns: Campaign, Impressions, Clicks, CTR, Avg. CPC, Cost, Conversions, Conv. rate and Cost / conv.
 
-Export from: Google Ads → Reports → Predefined Reports → Campaign Performance
+Meta Ads export (Ads Manager, then Export, then Campaign Data) needs these columns: Campaign name, Reach, Impressions, Clicks (all), CTR (all), CPC (all), Amount spent, Results, Cost per result and CPM.
 
-### Meta Ads Export
-Required columns:
-- Campaign name
-- Reach
-- Impressions
-- Clicks (all)
-- CTR (all)
-- CPC (all)
-- Amount spent
-- Results
-- Cost per result
-- CPM
+## Environment variables
 
-Export from: Meta Ads Manager → Export → Campaign Data
+| Variable | Purpose | Required |
+|----------|---------|----------|
+| `ANTHROPIC_API_KEY` | Key for the language model that writes the analysis | Yes, outside demo mode |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | Not yet |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anonymous key | Not yet |
+| `STRIPE_SECRET_KEY` | Stripe secret key | Not yet |
+| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe publishable key | Not yet |
 
-## Environment Variables
-
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `ANTHROPIC_API_KEY` | Your Anthropic API key for Claude | Yes |
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | No* |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anonymous key | No* |
-| `STRIPE_SECRET_KEY` | Stripe secret key for payments | No* |
-| `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe publishable key | No* |
-
-*These will be required when database/auth/payments are implemented.
-
-## Demo Mode
-
-If no `ANTHROPIC_API_KEY` is configured, the app will generate a demo report so you can test the full flow without an API key.
+Supabase and Stripe are planned for accounts and payments and aren't used yet.
 
 ## Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
-
-## Design System
-
-The app uses a strict black and white color scheme:
-- Primary: #000000 (Black)
-- Secondary: #FFFFFF (White)
-- All UI elements follow the monochrome theme for a clean, professional look.
+- `npm run dev` starts the development server
+- `npm run build` builds for production
+- `npm run start` runs the production build
+- `npm run lint` runs ESLint
 
 ## License
 
 MIT
-# Reportflow-AI
